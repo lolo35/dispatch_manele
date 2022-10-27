@@ -6,6 +6,16 @@ const routes:Array<RouteRecordRaw> = [
         path: "/",
         name: "Home",
         component : HomeView,
+    },
+    {
+        path: "/delete",
+        name: "Delete",
+        component: () => import('../views/DeleteView.vue'),
+    },
+    {
+        path: "/descriptions",
+        name: "DispatchDescriptions",
+        component: () => import('../views/DispatchDescriptions.vue'),
     }
 ];
 

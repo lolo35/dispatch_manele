@@ -4,14 +4,14 @@
 import SidebarComponent from './components/Navigation/SidebarComponent.vue';
 import { mainStore } from './store/index';
 import { onMounted } from 'vue';
-import { processExpression } from '@vue/compiler-core';
 
 const store = mainStore();
 
 onMounted(() => {
-  store.setUrl("produrl")
+  store.setUrl("http://tro-app11:8000/api/v1/")
   if(import.meta.env.DEV) {
     store.setUrl("http://localhost:8000/api/v1/")
+    document.body.classList.add("debug-screens")
   }
 })
 </script>

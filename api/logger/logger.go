@@ -42,3 +42,32 @@ func Err(err string) {
 	}
 	w.Flush()
 }
+
+func Log(str string) {
+	now := time.Now()
+	dateTime := now.Format(layoutISO)
+	date := now.Format(dateLayout)
+
+	cwd, _ := os.Getwd()
+	err := os.MkdirAll("storage/logs/", os.ModePerm)
+
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	path := filepath.Join(cwd, "storage/logs/", fmt.Sprintf("%s.log", date))
+	newFilePath := filepath.FromSlash(path)
+
+	f, err := os.OpenFile(newFilePath, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	w := bufio.NewWriter(f)
+
+	_, werr := w.WriteString(fmt.Sprintf("Log %s : %s \n", dateTime, str))
+	if werr != nil {
+		log.Fatal(werr)
+	}
+	w.Flush()
+}
