@@ -26,6 +26,15 @@ const matched = computed(() => {
             <router-link to="/descriptions" title="Dispatch description" :active-class="'dark:text-sky-500 dark:hover:text-sky-600 text-blue-500 hover:text-blue-700'" :class="{'text-gray-500 hover:text-gray-600': matched !== 'Delete'}">
                 <i class="fa-solid fa-comment fa-2x"></i>
             </router-link>
+            <router-link to="/closedispatches" title="Close dispatches" :active-class="'dark:text-sky-500 dark:hover:text-sky-600 text-blue-500 hover:text-blue-700'" :class="{'text-gray-500 hover:text-gray-600': matched !== 'CloseDispatches'}">
+                <i class="fa-solid fa-door-open fa-2x"></i>
+            </router-link>
+            <router-link to="/changedispatchtype" title="Change Dispatch Type" :active-class="'dark:text-sky-500 dark:hover:text-sky-600 text-blue-500 hover:text-blue-700'" :class="{'text-gray-500 hover:text-gray-600': matched !== 'ChangeDispatchType'}">
+                <i class="fa-solid fa-retweet fa-2x"></i>
+            </router-link>
+            <router-link to="/updateTargetQty" title="Update Cycle time" :active-class="'dark:text-sky-500 dark:hover:text-sky-600 text-blue-500 hover:text-blue-700'" :class="{'text-gray-500 hover:text-gray-600': matched !== 'UpdateTargetQty'}">
+                <i class="fa-solid fa-infinity fa-2x"></i>
+            </router-link>
         </div>
     </div>
 </template>

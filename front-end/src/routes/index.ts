@@ -16,6 +16,21 @@ const routes:Array<RouteRecordRaw> = [
         path: "/descriptions",
         name: "DispatchDescriptions",
         component: () => import('../views/DispatchDescriptions.vue'),
+    },
+    {
+        path: "/closedispatches",
+        name: "CloseDispatches",
+        component: () => import('../views/CloseDispatchesView.vue')
+    },
+    {
+        path: "/changedispatchtype",
+        name: "ChangeDispatchType",
+        component: () => import('../views/ChangeDispatchTypeView.vue')
+    },
+    {
+        path: "/updateTargetQty",
+        name: "UpdateTargetQty",
+        component: () => import('../views/UpdateTargetQtyView.vue')
     }
 ];
 

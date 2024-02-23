@@ -8,7 +8,7 @@ import { onMounted } from 'vue';
 const store = mainStore();
 
 onMounted(() => {
-  store.setUrl("http://tro-app11:8000/api/v1/")
+  store.setUrl("http://tro-app11:8004/api/v1/")
   if(import.meta.env.DEV) {
     store.setUrl("http://localhost:8000/api/v1/")
     document.body.classList.add("debug-screens")
