@@ -43,3 +43,14 @@ type DispatchDescriptions struct {
 	Wonumber                        string
 	gorm.Model
 }
+
+type L2LDispatchSystemStatusRequest struct {
+	Success bool                          `json:"success"`
+	Data    []L2LDispatchSystemStatusData `json:"data"`
+	Error   string                        `json:"error,omitempty"`
+}
+
+type L2LDispatchSystemStatusData struct {
+	ID          int    `json:"id"`
+	Description string `json:"description"`
+}

@@ -40,6 +40,11 @@ func main() {
 		v1.POST("/delete", controllers.DeleteDispatch)
 		v1.POST("/save_description", controllers.SaveDispatchDescriptions)
 		v1.GET("/description_count", controllers.FetchDispatchDescriptionCount)
+		v1.GET("/dispatch_system_statuses", controllers.FetchDispatchStatuses)
+		v1.POST("/change_dispatch_status", controllers.ChangeDispatchStatus)
+		v1.POST("/change_dispatch_type", controllers.ChangeDispatchTypes)
+		v1.POST("/update_target_quantity", controllers.UpdateTargetQuantity)
+
 	}
 
 	r.Run(port)

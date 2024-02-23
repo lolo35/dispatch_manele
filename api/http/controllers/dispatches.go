@@ -78,10 +78,10 @@ type DispatchInfo struct {
 func AddDispatches(ctx *gin.Context) {
 	type request struct {
 		Dispatchyypecode    string `json:"dispatchtypecode" form:"dispatchtypecode" binding:"required"`
-		Description         string `json:"description" form:"description" binding:"required"`
+		Description         string `json:"description" form:"description"`
 		Tradecode           string `json:"tradecode" form:"tradecode" binding:"required"`
 		Lines               string `json:"lines" form:"lines" binding:"required"`
-		Resourse            string `json:"resourse" form:"resourse" binding:"required"`
+		Resourse            string `json:"resourse" form:"resourse"`
 		RandStart           int    `json:"randstart" form:"randstart" binding:"required"`
 		RandEnd             int    `json:"randend" form:"randend" binding:"required"`
 		DescriptionIsRandom string `json:"descriptionIsRandom" form:"descriptionIsRandom" binding:"required"`
@@ -140,6 +140,7 @@ func AddDispatches(ctx *gin.Context) {
 	dispatchTypeCode := ctx.PostForm("dispatchtypecode")
 	description := ctx.PostForm("description")
 	tradecode := ctx.PostForm("tradecode")
+
 	resourse := ctx.PostForm("resourse")
 
 	var linesArr []lines
@@ -155,6 +156,8 @@ func AddDispatches(ctx *gin.Context) {
 			})
 			return
 		}
+
+		fmt.Println(description)
 
 		derr := AddDispatch(dispatchTypeCode, description, machine.Data.Code, tradecode, resourse, randStart, randEnd, descriptionIsRandom)
 
@@ -223,7 +226,7 @@ func fetchRandomDescription(dispatchTypeCode string) (string, error) {
 
 	randomNumber := rand.Intn(int(descriptionEnd.ID)-int(descriptionStart.ID)+1) + int(descriptionStart.ID)
 
-	db.Model(&models.DispatchDescriptions{}).Where("id = ?", randomNumber).First(&dbDescription)
+	db.Debug().Model(&models.DispatchDescriptions{}).Where("id = ?", randomNumber).First(&dbDescription)
 
 	description := dbDescription.Description
 
@@ -248,6 +251,10 @@ func AddDispatch(dispatchtypecode string, description string, machinecode string
 				return err
 			}
 			desc = d
+		}
+
+		if machinecode == "" {
+			continue
 		}
 
 		payload := strings.NewReader(
@@ -405,6 +412,8 @@ func FetchDispatch(dispatchnumber string) (DispatchInfoResp, error) {
 	endpoint := fmt.Sprintf("%sdispatches/?auth=%s&site=%s&dispatchnumber=%s&fields=id,reported,site,dispatchtype,dispatchtypecode,machinecode,machine,linecode,line", env.Env("L2L_URL"), env.Env("L2L_AUTH"), env.Env("L2L_SITE"), dispatchnumber)
 	var response DispatchInfoResp
 	request, err := http.Get(endpoint)
+
+	request.Close = true
 
 	if err != nil {
 		logger.Err(err.Error())
